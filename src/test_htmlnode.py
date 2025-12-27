@@ -43,7 +43,9 @@ class TestHTMLNode(unittest.TestCase):
             LeafNode("b", "world"),
             LeafNode(None, "!")]
         parent = ParentNode("p", children)
-        self.assertEqual(parent.to_html(),"<p>Hello <b>world</b>!</p>")             
+        self.assertEqual(parent.to_html(),"<p>Hello <b>world</b>!</p>")
+
+
             
 
 if __name__ == "__main__":
