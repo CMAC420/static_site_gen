@@ -1,8 +1,8 @@
 from src.block_type import BlockType, block_to_block_type
 from src.blocks import markdown_to_blocks
-from text import text_to_text_node
-from textnode import text_node_to_html_node
-from htmlnode import ParentNode, LeafNode
+from src.text import text_to_text_node
+from src.textnode import text_node_to_html_node
+from src.htmlnode import ParentNode, LeafNode
 
 def text_to_children(text):
     text_node = text_to_text_node(text)
@@ -23,13 +23,13 @@ def code_to_html(block):
 
 def quote_to_html(block):
     lines = block.split("\n")
-    cleaned = "\n".join(line[1:].lstrip for line in lines)
+    cleaned = "\n".join(line[1:].lstrip() for line in lines)
     return ParentNode("blockquote", text_to_children(cleaned))
 
 def unordered_list_to_html(block):
     items = []
     for line in block.split("\n"):
-        text = line.split(". ", 1)[1]
+        text = line[2:]
         items.append(ParentNode("li", text_to_children(text)))
     return ParentNode("ul", items)
 
