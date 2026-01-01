@@ -1,19 +1,24 @@
 import os
+import shutil
+import sys
+
 from src.utils import copy_static
-from src.generate_page import generate_page
+from src.generate_page import generate_pages_recursive
 
 def main():
-    if os.path.exists("public"):
-        import shutil
-        shutil.rmtree("public")
+
+    basepath = "/"
+    if len(sys.argv) > 1:
+        basepath = sys.argv[1]
     
-    copy_static("static", "public")
+    copy_static("static", "docs")
     print("Static files copied successfully!")
 
-    generate_page(
-        "content/index.md",
+    generate_pages_recursive(
+        "content",
         "template.html",
-        "public/index.html"
+        "docs",
+        basepath
     )
 
 if __name__ == "__main__":
